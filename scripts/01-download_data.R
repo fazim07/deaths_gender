@@ -5,7 +5,6 @@
 # Contact: faiza.imam@mail.utoronto.ca
 # License: MIT
 
-
 #### Workspace setup ####
 library(opendatatoronto)
 library(tidyverse)
@@ -31,8 +30,7 @@ data <- filter(datastore_resources, row_number()==3) %>% get_resource()
 data
 
 #Save Raw Data File.
-write_csv(data, "raw_data.csv")
-
+write_csv(data, "data/raw_data/raw_data.csv")
 
 
          
