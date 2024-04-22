@@ -58,6 +58,7 @@ clean_omitNA <-
     Gender,
     Age_group,
     death_toll,
+    Cause_of_death
   ) 
 
 
