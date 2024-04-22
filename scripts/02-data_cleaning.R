@@ -56,9 +56,11 @@ clean_omitNA <-
   select(
     Year_of_death,
     Gender,
-    Age,
-    death_toll
+    Age_group,
+    death_toll,
   ) 
+
+
 
 
 #Following few lines of code are from  https://tellingstorieswithdata.com/02-drinking_from_a_fire_hose.html
