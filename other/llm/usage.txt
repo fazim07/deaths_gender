@@ -55,4 +55,36 @@ print(simulated_data)
 
 In this code, we've adjusted the `runif` function to generate 84 random values for `Death_Toll` and `Age_group`, matching the number of rows in the data frame. This should resolve the size compatibility issue.
 
+## April 22
 
+User: fix error and change graph : home2017 <- home_data %>%
+  filter(Year_of_death == 2017) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2017, aes(x = fct_reorder(Age_group, n), y = n, fill = Cause_of_death)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+chatgpt: Got it! If you prefer a different visual style for your graphs, we can explore some alternatives to the default ggplot2 style. Here's an example using the theme_bw() function to create a black and white theme for your plot:
+
+R
+Copy code
+# Filter for the year 2017 and count occurrences of Cause_of_death and Age_group
+home2017 <- home_data %>%
+  filter(Year_of_death == 2017) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death with a black and white theme
+ggplot(home2017, aes(x = fct_reorder(Age_group, n), y = n, fill = Cause_of_death)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +  # Black and white theme
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+This code uses theme_bw() to set a black and white theme for your plot. You can further customize the theme or explore other themes provided by ggplot2 to achieve the visual style you prefer. Let me know if you'd like to try a different theme or if there's anything else you'd like to adjust in the plot!
+
+### Aspects of the paper were error/ grammar checked my chagpt. Due to the sheer size of the paper and feedback I was not able to put the whole chat history onto this file.

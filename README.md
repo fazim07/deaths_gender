@@ -2,8 +2,7 @@
 
 ## Overview
 
-This repository contains data, code and a paper that analyze the trends in the cause of deaths, age, and genders of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package[].
-
+This repository contains data, code and a paper that analyze the trends in the cause of deaths, age, and genders of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package[.
 
 ## File Structure
 
@@ -16,6 +15,16 @@ The repo is structured as:
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data.
 
+## Data Extraction
+The data set was obtained from Opendata Toronto; https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/
+
+##Statement on Parquet File
+When attempting to make a parquet file, I encountered this message which prevented me from dowloading the necessary resources:
+
+ > Error in parquet___arrow___ArrowReaderProperties__Make(isTRUE(use_threads)) : Cannot call parquet___arrow___ArrowReaderProperties__Make(). See https://arrow.apache.org/docs/r/articles/install.html for help installing Arrow C++ libraries.
+
+The arrow package is an interface to the Apache Arrow C++ libraries, and Parquet is a columnar storage file format that is optimized for use with data analysis tools. The error message Cannot call parquet___arrow___ArrowReaderProperties__Make() specifically means that the R session tried to execute a function related to reading Parquet files but failed because it couldn't find the necessary underlying Arrow C++ library functions.
+
 
 ## Statement on LLM usage
-[update upon changes]
+Aspectd of the code was fixed and aided by ChatGPT, receipts can be found in 'other` > 'llm' > 'usage.txt'. This paper used Chatgpt to proofread which is also indicated in 'usage.text' file.
