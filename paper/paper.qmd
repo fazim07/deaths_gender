@@ -1,8 +1,8 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Unveiling Vulnerabilities"
+subtitle: "An Analysis of Causes of Death Across Age Groups and Genders Within Toronto's Homelessness Population"
 author: "Faiza Imam"
-thanks: "Code and data are available at: []."
+thanks: "Code and data are available at: https://github.com/fazim07/deaths_gender"
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -16,36 +16,52 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-
 library(tidyverse)
 library(knitr)
-library(tidyverse)
 library(usethis)
 library(kableExtra)
-library (arrow)
 library(opendatatoronto)
 library(janitor)
-
 library(here)
-home_data <- readr::read_csv(here::here("data/analysis_data/clean_dataNA.csv"))
+library(dplyr)
+library(ggplot2)
 
+home_data <- readr::read_csv(here::here("data/analysis_data/clean_dataNA.csv"))
 
 ```
 
 
 # Introduction
+Homelessness is typically thought of as an individual who is completely unhoused or resides in public spaces. Four categories are commonly used to describe homelessness to various degrees. Chronic homelessness is a pattern in which an individual has had or is facing homelessness in a continuous pattern. Often, these victims are older and struggle with complex health issues, i.e., diabetes, mental illness, or addiction. Episodic homelessness refers to an individual who has experienced 3-4 periods of homelessness within a year [@statCan]. Typically seen in younger cohorts, these individuals often fall prey to addiction or have mental health issues. This specific category is critical as episodic homelessness can transform into chronic if left unprovoked [@4homes]. Transitional homelessness refers to individuals who become homeless due to a major life event that affects their financial, familial, or social situation. Considered the most common form of homelessness, particularly since the pandemic, it is typically found in younger working individuals and can lead them to seek shelters for temporary housing [@4homes]. Lastly, hidden homelessness refers to individuals who are 'couch-surfing' with friends or family. This type is typically undocumented and unreported, hence not much data is collected from it. Individuals facing this particular type have no guarantee that they may find housing and are not registered under any shelters [@4homes].
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+Some of the key factors that result in homelessness are financial challenges, results from abuse or intimate partner violence, health issues which cannot be sustained within a household, and finally addiction or substance abuse (@statCan). Although many underlying factors contribute to an individual becoming or facing homelessness, it’s important to keep an open and empathetic  mind when dealing with the data collected to understand these trends. Research has shown that women make up 27.3% of the homeless population. Several factors contribute to the higher likelihood of women experiencing homelessness compared to men. These factors include unstable employment, which raises the risk of income fluctuations or job loss, as well as the added responsibility of care giving, such as caring for children and dependents, intimate partner violence and other forms of abuse (@Homehubs).
 
-The remainder of this paper is structured as follows. @sec-data....
+This paper aims to identify the correlation between gender and age within the homeless population in Toronto from the year 2017 - 2023, specifically examining how age and gender intersect in terms of homelessness experiences and demographic characteristics. In examining the data set concerning causes of death, including homelessness as a potential factor, I hypothesize that there is a notable relationship between female homelessness and mortality rates across different age groups. Specifically, the anticipation that younger age groups (<20 and 20-39) among homeless females may exhibit higher mortality rates compared to older age groups (40-59 and 60+), potentially due to factors such as exposure to harsh living conditions, limited access to healthcare, and increased vulnerability to external threats.
+
+The paper follows a structured approach comprising an [Introduction], [Data], [Results], and [Discussion] sections. The [Introduction] sets the stage by providing essential background information on homelessness in Toronto and outlining the research objectives. Moving into the [Data] section, the methodology for data collection, including gender, age, and homelessness status assessment. The [Results] section presents findings on the correlation between gender and age within Toronto's homeless population, using visual aids to depict trends and significant patterns. Finally, the [Discussion] section interprets these results in the context of the research questions, compares them with existing literature, addresses methodological limitations and biases, and suggests potential areas for future research to further expand understanding in this domain.
+
+The graphs and tables in this paper were made with [@citeR] using R studio. The creation of these graphs and tables was made with `ggplot` [@ggplot], `tiddyverse` [@rTidy], The analysis and cleaning of the data were conducted with and `dyplr` [@dply], `janitor` [@janitor] and `readr` [@readr] packages.
 
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+The data was collected from Open Data Toronto, specifically from the data set called "Deaths of People Experiencing Homelessness," which is a subset known as "Homeless deaths by cause." Toronto Public Health (TPH) conducted this data collection initiative to track the deaths of people experiencing homelessness more accurately and understand their causes. TPH oversees the data collection, analysis, and reporting, while the Shelter, Support and Housing Administration (SSHA) and various health and social service agencies that support the homeless population share information with TPH. The Office of the Chief Coroner of Ontario (OCCO) also verifies some of the data. In this context, homelessness is defined as "the situation of an individual or family without stable, permanent, appropriate housing, or the immediate prospect, means, and ability to acquire it [@Odata].
+
+
+## Data Source
+
+The original data set contained six variables, for this paper, I have selected five of the six. The first variable, *id* contains an id number which is associated with the following variables, *cause of death*, *age group*, *year of death*, and *gender*.  There are a total of 253 entries. The *cause of death* variable is listened from 12 categories. These categories include homicide, accident, cardiovascular disease, cancer, COVID-19, drug toxicity, pneumonia, suicide, others and unknown. There are no notices nor indications on what the category other and unknown classifies as. The *age group* variable is a set of four age ranges, <20 years old, 20-39 years of age, 40-59 years of age and 60+ years of age @tbl-Agegroup. *Year of death*, covers the years from 2017 to 2023. Lastly, the gender variable houses, three categories, male, female, and unknown @tbl-Gender. Once again, the *unknown* has not been classified.
+
+## Variables of Intrest & Cleaning 
+
+To clean the data, five of the six variables were chosen as the *id* variable was not required for this paper. From there the *age group* category had unknown variables. To avoid any issues with the gender death analysis, the unknown variables were omitted from the clean data set. This brings the clean data set to 233 entries as opposed to the original 253, @tbl-summtable shows a snap shot of the clean data sets. The decision to omit unknown values in the age group category is particularly important when analyzing how gender correlates with different causes of death across specific age groups. Including unknown values could introduce uncertainty and skew the findings, making it challenging to draw accurate conclusions about any relationships or trends observed between gender, age, and causes of death among the homeless population.
+
+Therefore, by focusing on known age group data, the analysis can provide more insightful and reliable insights into how gender may influence mortality rates or patterns of causes of death within different age brackets among the homeless population in Toronto.
+
+
 ```{r}
 #| echo: false
-#| label: tbl-summ_table
+#| label: tbl-summtable
 #| tbl-cap: "Summary of clean data"
 #| message: false
 
@@ -64,13 +80,7 @@ head(Sum_data, 7) %>%
 
 ```
 
-Talk more about it.
 
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-
-
-Talk way more about it. 
 
 ```{r}
 #| echo: false
@@ -103,7 +113,12 @@ GendervDeath <- home_data %>%
 #| label: tbl-Agegroup
 #| tbl-cap: "Age Groups and their total death tolls"
 
+age_order <- c("<20", "20-39", "40-59", "60+")
 
+# Use factor to set the order of levels for Age_group
+home_data$Age_group <- factor(home_data$Age_group, levels = age_order)
+
+# Group by Cause_of_death and Age_group, maintaining the age order
 
 #Age group death count
 AgevDeath <- home_data %>%
@@ -122,18 +137,17 @@ AgevDeath <- home_data %>%
   )
 ```
 
-# Results
 
-Our results are summarized in @tbl-modelresults.
+
+
 
 ```{r}
 #| echo: false
 #| warning: false
 #| label: fig-Yearvcuase
-#| fig-cap: Cause of death by year
+#| fig-cap: "Cause of death by year trends form 2017 - 2023"
 
 
-############
 #Yearly death causes
 YearvCause <- home_data %>%
   group_by(Year_of_death,Cause_of_death) %>%
@@ -147,11 +161,10 @@ YearvCause <- home_data %>%
  YearvCause %>%
   ggplot(aes(x = Year_of_death , y = total_deaths, fill = factor(Cause_of_death))) +
   geom_col(position = "dodge", alpha = 0.8) +  # Use geom_col() for bar charts
-  labs(title = "Total Cause of death by year", x = "Year", y = "Total Deaths", fill = "Cause of Death") +
+  labs(title = "Yearly cause of death trends", x = "Cause of Death", y = "Total Deaths", fill = "Cause of death") +
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
  
-
 
 ```
 
@@ -186,50 +199,275 @@ AgevCause <- home_data %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+
 ```{r}
-#| label: fig-Gendercause
-#| fig-cap: "Total cause of deaths grouped by gender"
+#| label: agedeathsbyyear
+#| fig-cap: "Total deaths by age group from 2017-2023"
+#| fig-subcap: ["Total Deaths by Age in 2017", "Total Deaths by Age in 2018", "Total Deaths by Age in 2019", "Total Deaths by Age in 2020", "Total Deaths by Age in 2021","Total Deaths by Age in 2022","Total Deaths by Age in 2023"]
+#| layout-ncol: 2
 #| echo: false
+#| warning: false
 #| message: false
 
-#Gender and cuases of death within each group
-GendervCause <- home_data %>%
-  group_by(Cause_of_death, Gender) %>%
-  summarize(total_deaths = sum(death_toll))
+#2017 dATA
+home2017 <- home_data %>%
+  filter(Year_of_death == 2017) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2017, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+#########2018
+home2018 <- home_data %>%
+  filter(Year_of_death == 2018) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2018, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+#######2019
+
+home2019 <- home_data %>%
+  filter(Year_of_death == 2019) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2019, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
 
 
- write_csv(
-  x = GendervCause ,
-  file = "GendervCause.csv"
-)
+##### 2020
+home2020 <- home_data %>%
+  filter(Year_of_death == 2020) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
 
-GendervCause %>%
-  ggplot(aes(x = Cause_of_death, y = total_deaths, fill = factor(Gender))) +
-  geom_col(position = "dodge", alpha = 0.8) + 
-  labs(title = "Cause of Death by Gender", x = "Cause of Death", y = "Total Deaths", fill = "Gender") +
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# Plot the top 10 causes of death
+ggplot(home2020, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2021
+home2021 <- home_data %>%
+  filter(Year_of_death == 2021) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2021, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2022
+home2022 <- home_data %>%
+  filter(Year_of_death == 2022) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2022, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2023
+home2023 <- home_data %>%
+  filter(Year_of_death == 2023) %>%
+  count(Cause_of_death, Age_group) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2023, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
 
 ```
 
 
+```{r}
+#| label: genderyear
+#| fig-cap: "Total deaths by age group from 2017-2023"
+#| fig-subcap: ["Total Deaths by Age in 2017", "Total Deaths by Age in 2018", "Total Deaths by Age in 2019", "Total Deaths by Age in 2020", "Total Deaths by Age in 2021","Total Deaths by Age in 2022","Total Deaths by Age in 2023"]
+#| layout-ncol: 2
+#| echo: false
+#| warning: false
+#| message: false
+
+##### 2017
+home2017 <- home_data %>%
+  filter(Year_of_death == 2017) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2017, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+
+##### 2018
+home2018 <- home_data %>%
+  filter(Year_of_death == 2018) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2018, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+
+##### 2019
+home2019 <- home_data %>%
+  filter(Year_of_death == 2019) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2019, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+
+##### 2019
+home2019 <- home_data %>%
+  filter(Year_of_death == 2019) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2019, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2020
+home2020 <- home_data %>%
+  filter(Year_of_death == 2020) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2020, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+
+##### 2021
+home2021 <- home_data %>%
+  filter(Year_of_death == 2021) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2021, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2022
+home2022 <- home_data %>%
+  filter(Year_of_death == 2022) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2022, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+
+##### 2023
+home2023 <- home_data %>%
+  filter(Year_of_death == 2023) %>%
+  count(Cause_of_death, Gender) %>%
+  top_n(10, n)  # Filter for the top 10 causes of death
+
+# Plot the top 10 causes of death
+ggplot(home2023, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: fig-AgeGencause
+#| fig-cap: Looking at the death toll trends of age groups and gender
+
+AgeGencause <- home_data %>%
+  group_by(Age_group, Gender) %>%
+  summarize(total_deaths = sum(death_toll))
+
+ write_csv(
+  x = AgeGencause,
+  file = "AgeGencause.csv"
+)
+
+AgeGencause %>%
+  ggplot(aes(x = Age_group, y = total_deaths, fill = factor(Gender))) +
+  geom_col(alpha = 0.8) +  # Use geom_col() for bar charts
+  labs(title = "Deaths by Age group to Gender", x = "Age Group", y = "Total Deaths", fill = "Gender") +
+  scale_fill_manual(values = c("maroon","lightblue", "purple")) +  # Specify colors for each Gender level
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+# Results
+
+
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Yearly Death Analysis
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+## Causes of Death by Age Group
 
-## Second discussion point
+## Causes of Death by Gender
 
-## Third discussion point
+## Weaknesses & Next Steps
+When considering weaknesses and potential biases in research on the correlation between gender and age within the homeless population in Toronto, several aspects should be addressed to understand what factors may have skewed the data projections during this paper's analysis. There was limited data available regarding age and gender breakdowns, and even with the available data, there were a few entries that were unknown for the age category. I opted to exclude those values to focus on the existing and available values within the dataset. This decision could have skewed the data and constrained the accuracy of the findings. As mentioned previously, there is an underlying stigma surrounding homelessness, which alone can influence individuals who are reluctant to disclose information, particularly those facing hidden homelessness. Lastly, within the gender values, there are three variables: male, female, and unknown. This unknown entry possibly refers to those individuals who have an LGBTQ+ identity and can overlook important nuances in the experiences of homeless individuals. Addressing these weaknesses and biases through rigorous study design, comprehensive data collection methods, ethical considerations, and thoughtful analysis can enhance the reliability and validity of research findings in this area." 
 
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
+Future studies in this area should aim to investigate the intersectionality of gender, race, ethnicity LGBTQ+ identity, disability status and mental illness to understand the long-term effects of homelessness within these demographics. Findings from this research can help understand how policymakers and organizations can help alleviate the growing numbers of homelessness victims and pave the way for research methodologies and intervention strategies aimed at addressing homelessness in a broader sense. Another future study can be aimed at exploring the long-term impacts of homelessness on an individual's physical and mental health, as well as their ability to reintegrate into stable housing and employment situations whether they face chronic or episodic homelessness. Understanding the nuanced challenges faced by homeless individuals, including the effects on physical and mental health, reintegration into stable housing and employment, and the cyclical nature of homelessness, is essential for creating effective and sustainable solutions. By prioritizing research and intervention strategies that consider the multifaceted aspects of homelessness, we can work towards a more inclusive and supportive approach that fosters long-term stability and well-being for vulnerable populations.
 
 
 \newpage
-
 
 # References
 
