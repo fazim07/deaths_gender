@@ -27,4 +27,4 @@ The arrow package is an interface to the Apache Arrow C++ libraries, and Parquet
 
 
 ## Statement on LLM usage
-Aspects of the code were fixed and aided by ChatGPT, receipts can be found in 'other` > 'llm' > 'usage.txt'. This paper used Chatgpt to proofread which is also indicated in the 'usage.text' file.
+Aspects of the code were fixed and aided by ChatGPT, receipts can be found in `other` > `LLM` > `usage.txt`. This paper used Chatgpt to proofread which is also indicated in the `usage.txt` file.
