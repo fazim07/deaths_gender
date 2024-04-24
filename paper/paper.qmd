@@ -5,7 +5,7 @@ author: "Faiza Imam"
 thanks: "Code and data are available at: https://github.com/fazim07/deaths_gender"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper aims to explore the relationship between male homelessness and mortality rates across age groups, focusing on causes of death related to homelessness in Toronto from the years 2017- 2023. The hypothesis suggests that younger homeless males (<20 and 20-39) may have higher mortality rates due to harsh living conditions, limited healthcare access, and increased vulnerability. The results indicate that while male homeless mortality rates are generally higher than reported female death tolls, the most affected age demographic is the 40-59 age range rather than the hypothesized age group."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -36,7 +36,7 @@ Homelessness is typically thought of as an individual who is completely unhoused
 
 Some of the key factors that result in homelessness are financial challenges, results from abuse or intimate partner violence, health issues which cannot be sustained within a household, and finally addiction or substance abuse (@statCan). Although many underlying factors contribute to an individual becoming or facing homelessness, it’s important to keep an open and empathetic  mind when dealing with the data collected to understand these trends. Research has shown that women make up 27.3% of the homeless population. Several factors contribute to the higher likelihood of women experiencing homelessness compared to men. These factors include unstable employment, which raises the risk of income fluctuations or job loss, as well as the added responsibility of care giving, such as caring for children and dependents, intimate partner violence and other forms of abuse (@Homehubs).
 
-This paper aims to identify the correlation between gender and age within the homeless population in Toronto from the year 2017 - 2023, specifically examining how age and gender intersect in terms of homelessness experiences and demographic characteristics. In examining the data set concerning causes of death, including homelessness as a potential factor, I hypothesize that there is a notable relationship between female homelessness and mortality rates across different age groups. Specifically, the anticipation that younger age groups (<20 and 20-39) among homeless females may exhibit higher mortality rates compared to older age groups (40-59 and 60+), potentially due to factors such as exposure to harsh living conditions, limited access to healthcare, and increased vulnerability to external threats.
+This paper aims to identify the correlation between gender and age within the homeless population in Toronto from the year 2017 - 2023, specifically examining how age and gender intersect in terms of homelessness experiences and demographic characteristics. In examining the data set concerning causes of death, including homelessness as a potential factor, I hypothesize that there is a notable relationship between male homelessness and mortality rates across different age groups. Specifically, the anticipation that younger age groups (<20 and 20-39) among homeless males may exhibit higher mortality rates compared to older age groups (40-59 and 60+), potentially due to factors such as exposure to harsh living conditions, limited access to healthcare, and increased vulnerability to external threats.
 
 The paper follows a structured approach comprising an [Introduction], [Data], [Results], and [Discussion] sections. The [Introduction] sets the stage by providing essential background information on homelessness in Toronto and outlining the research objectives. Moving into the [Data] section, the methodology for data collection, including gender, age, and homelessness status assessment. The [Results] section presents findings on the correlation between gender and age within Toronto's homeless population, using visual aids to depict trends and significant patterns. Finally, the [Discussion] section interprets these results in the context of the research questions, compares them with existing literature, addresses methodological limitations and biases, and suggests potential areas for future research to further expand understanding in this domain.
 
@@ -50,7 +50,7 @@ The data was collected from Open Data Toronto, specifically from the data set ca
 
 ## Data Source
 
-The original data set contained six variables, for this paper, I have selected five of the six. The first variable, *id* contains an id number which is associated with the following variables, *cause of death*, *age group*, *year of death*, and *gender*.  There are a total of 253 entries. The *cause of death* variable is listened from 12 categories. These categories include homicide, accident, cardiovascular disease, cancer, COVID-19, drug toxicity, pneumonia, suicide, others and unknown. There are no notices nor indications on what the category other and unknown classifies as. The *age group* variable is a set of four age ranges, <20 years old, 20-39 years of age, 40-59 years of age and 60+ years of age @tbl-Agegroup. *Year of death*, covers the years from 2017 to 2023. Lastly, the gender variable houses, three categories, male, female, and unknown @tbl-Gender. Once again, the *unknown* has not been classified.
+The original data set contained six variables, for this paper, I have selected five of the six. The first variable, *id* contains an id number which is associated with the following variables, *cause of death*, *age group*, *year of death*, and *gender*.  There are a total of 253 entries. The *cause of death* variable is listened from 12 categories. These categories include homicide, accident, cardiovascular disease, cancer, COVID-19, drug toxicity, pneumonia, suicide, others and unknown. There are no notices nor indications on what the category other and unknown classifies as. *Year of death*, covers the years from 2017 to 2023. Lastly, the gender variable houses, three categories, male, female, and unknown @tbl-Gender. Once again, the *unknown* has not been classified. We can observe by the table that Male homeless victims have highest death tolls sitting at 749, while female victims come in second with 210, followed by unknown indivudals who are accounted for as 3 The *age group* variable is a set of four age ranges, <20 years old, 20-39 years of age, 40-59 years of age and 60+ years of age @tbl-Agegroup. We can see that there are 9 deaths reported for the age gorup under 20, followed by the 20-39 age range, then the 60+ age range and finally, the 40-59 age range having the highest death tolls among each demograph.
 
 ## Variables of Intrest & Cleaning 
 
@@ -184,7 +184,7 @@ home_data$Age_group <- factor(home_data$Age_group, levels = age_order)
 AgevCause <- home_data %>%
   group_by(Cause_of_death, Age_group) %>%
   summarize(total_deaths = sum(death_toll))
-
+AgevCause
 
  write_csv(
   x = AgevCause,
@@ -305,11 +305,36 @@ ggplot(home2023, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Age_group
 
 ```
 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: fig-AgeGencause
+#| fig-cap: Looking at the death toll trends of age groups and gender
+
+AgeGencause <- home_data %>%
+  group_by(Age_group, Gender) %>%
+  summarize(total_deaths = sum(death_toll))
+
+ write_csv(
+  x = AgeGencause,
+  file = "AgeGencause.csv"
+)
+
+AgeGencause %>%
+  ggplot(aes(x = Age_group, y = total_deaths, fill = factor(Gender))) +
+  geom_col(alpha = 0.8) +  # Use geom_col() for bar charts
+  labs(title = "Deaths by Age group to Gender", x = "Age Group", y = "Total Deaths", fill = "Gender") +
+  scale_fill_manual(values = c("maroon","lightblue", "purple")) +  # Specify colors for each Gender level
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 ```{r}
 #| label: genderyear
-#| fig-cap: "Total deaths by age group from 2017-2023"
-#| fig-subcap: ["Total Deaths by Age in 2017", "Total Deaths by Age in 2018", "Total Deaths by Age in 2019", "Total Deaths by Age in 2020", "Total Deaths by Age in 2021","Total Deaths by Age in 2022","Total Deaths by Age in 2023"]
+#| fig-cap: "Total Deaths by Gender from 2017-2023"
+#| fig-subcap: ["Total Deaths by Gender in 2017", "Total Deaths by Gender in 2018", "Total Deaths by Gender in 2019", "Total Deaths by Gender in 2020", "Total Deaths by Gender in 2021","Total Deaths by Gender in 2022","Total Deaths by Gender in 2023"]
 #| layout-ncol: 2
 #| echo: false
 #| warning: false
@@ -425,41 +450,23 @@ ggplot(home2023, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) 
 ```
 
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-#| label: fig-AgeGencause
-#| fig-cap: Looking at the death toll trends of age groups and gender
 
-AgeGencause <- home_data %>%
-  group_by(Age_group, Gender) %>%
-  summarize(total_deaths = sum(death_toll))
-
- write_csv(
-  x = AgeGencause,
-  file = "AgeGencause.csv"
-)
-
-AgeGencause %>%
-  ggplot(aes(x = Age_group, y = total_deaths, fill = factor(Gender))) +
-  geom_col(alpha = 0.8) +  # Use geom_col() for bar charts
-  labs(title = "Deaths by Age group to Gender", x = "Age Group", y = "Total Deaths", fill = "Gender") +
-  scale_fill_manual(values = c("maroon","lightblue", "purple")) +  # Specify colors for each Gender level
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-```
 # Results
-
-
-# Discussion
 
 ## Yearly Death Analysis
 
-## Causes of Death by Age Group
+## Age Groups and Cause of Death
 
-## Causes of Death by Gender
+## Gender and Cause of Death
+
+# Discussion
+
+## Male to Female Cause of Death Trends
+
+## Age Demograph Cause of Death Trends
+
+## Male Age Specific Death Trends
+
 
 ## Weaknesses & Next Steps
 When considering weaknesses and potential biases in research on the correlation between gender and age within the homeless population in Toronto, several aspects should be addressed to understand what factors may have skewed the data projections during this paper's analysis. There was limited data available regarding age and gender breakdowns, and even with the available data, there were a few entries that were unknown for the age category. I opted to exclude those values to focus on the existing and available values within the dataset. This decision could have skewed the data and constrained the accuracy of the findings. As mentioned previously, there is an underlying stigma surrounding homelessness, which alone can influence individuals who are reluctant to disclose information, particularly those facing hidden homelessness. Lastly, within the gender values, there are three variables: male, female, and unknown. This unknown entry possibly refers to those individuals who have an LGBTQ+ identity and can overlook important nuances in the experiences of homeless individuals. Addressing these weaknesses and biases through rigorous study design, comprehensive data collection methods, ethical considerations, and thoughtful analysis can enhance the reliability and validity of research findings in this area." 

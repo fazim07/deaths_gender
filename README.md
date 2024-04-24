@@ -2,7 +2,10 @@
 
 ## Overview
 
-This repository contains data, code and a paper that analyze the trends in the cause of deaths, age, and genders of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package[.
+This paper aims to explore the relationship between male homelessness and mortality rates across age groups, focusing on causes of death related to homelessness in Toronto from the years 2017- 2023. The hypothesis suggests that younger homeless males (<20 and 20-39) may have higher mortality rates due to harsh living conditions, limited healthcare access, and increased vulnerability. The results indicate that while male homeless mortality rates are generally higher than reported female death tolls, the most affected age demographic is the 40-59 age range rather than the hypothesized age group.
+
+This repository contains data, code and a paper that analyze the trends in the cause of deaths, age, and genders of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/ .
+
 
 ## File Structure
 
@@ -18,7 +21,7 @@ The repo is structured as:
 ## Data Extraction
 The data set was obtained from Opendata Toronto; https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/
 
-##Statement on Parquet File
+## Statement on Parquet File
 When attempting to make a parquet file, I encountered this message which prevented me from dowloading the necessary resources:
 
  > Error in parquet___arrow___ArrowReaderProperties__Make(isTRUE(use_threads)) : Cannot call parquet___arrow___ArrowReaderProperties__Make(). See https://arrow.apache.org/docs/r/articles/install.html for help installing Arrow C++ libraries.
