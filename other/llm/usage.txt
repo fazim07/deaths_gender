@@ -87,4 +87,6 @@ ggplot(home2017, aes(x = fct_reorder(Age_group, n), y = n, fill = Cause_of_death
   labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
 This code uses theme_bw() to set a black and white theme for your plot. You can further customize the theme or explore other themes provided by ggplot2 to achieve the visual style you prefer. Let me know if you'd like to try a different theme or if there's anything else you'd like to adjust in the plot!
 
-### Aspects of the paper were error/ grammar checked my chagpt. Due to the sheer size of the paper and feedback I was not able to put the whole chat history onto this file.
+### The paper used chatGpt to check for grammatical and spelling errors from April 20-24. Due to the sheer size of the paper and feedback I was not able to put the whole chat history onto this file.
+
+
