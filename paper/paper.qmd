@@ -8,6 +8,7 @@ date-format: long
 abstract: "This paper aims to explore the relationship between male homelessness and mortality rates across age groups, focusing on causes of death related to homelessness in Toronto from the years 2017- 2023. The hypothesis suggests that younger homeless males (<20 and 20-39) may have higher mortality rates due to harsh living conditions, limited healthcare access, and increased vulnerability. The results indicate that while male homeless mortality rates are generally higher than reported female death tolls, the most affected age demographic is the 40-59 age range rather than the hypothesized age group."
 format: pdf
 number-sections: true
+toc: true
 bibliography: references.bib
 ---
 
@@ -30,11 +31,10 @@ home_data <- readr::read_csv(here::here("data/analysis_data/clean_dataNA.csv"))
 
 ```
 
-
 # Introduction
 Homelessness is typically thought of as an individual who is completely unhoused or resides in public spaces. Four categories are commonly used to describe homelessness to various degrees. Chronic homelessness is a pattern in which an individual has had or is facing homelessness in a continuous pattern. Often, these victims are older and struggle with complex health issues, i.e., diabetes, mental illness, or addiction. Episodic homelessness refers to an individual who has experienced 3-4 periods of homelessness within a year [@statCan]. Typically seen in younger cohorts, these individuals often fall prey to addiction or have mental health issues. This specific category is critical as episodic homelessness can transform into chronic if left unprovoked [@4homes]. Transitional homelessness refers to individuals who become homeless due to a major life event that affects their financial, familial, or social situation. Considered the most common form of homelessness, particularly since the pandemic, it is typically found in younger working individuals and can lead them to seek shelters for temporary housing [@4homes]. Lastly, hidden homelessness refers to individuals who are 'couch-surfing' with friends or family. This type is typically undocumented and unreported, hence not much data is collected from it. Individuals facing this particular type have no guarantee that they may find housing and are not registered under any shelters [@4homes].
 
-Some of the key factors that result in homelessness are financial challenges, results from abuse or intimate partner violence, health issues which cannot be sustained within a household, and finally addiction or substance abuse (@statCan). Although many underlying factors contribute to an individual becoming or facing homelessness, it’s important to keep an open and empathetic  mind when dealing with the data collected to understand these trends. Research has shown that women make up 27.3% of the homeless population. Several factors contribute to the higher likelihood of women experiencing homelessness compared to men. These factors include unstable employment, which raises the risk of income fluctuations or job loss, as well as the added responsibility of care giving, such as caring for children and dependents, intimate partner violence and other forms of abuse (@Homehubs). However, there is no study explaining the reason to the high volume of male victims in homelessness populations. 
+Some of the key factors that result in homelessness are financial challenges, results from abuse or intimate partner violence, health issues which cannot be sustained within a household, and finally addiction or substance abuse [@statCan]. Although many underlying factors contribute to an individual becoming or facing homelessness, it’s important to keep an open and empathetic  mind when dealing with the data collected to understand these trends. Research has shown that women make up 27.3% of the homeless population. Several factors contribute to the higher likelihood of women experiencing homelessness compared to men. These factors include unstable employment, which raises the risk of income fluctuations or job loss, as well as the added responsibility of care giving, such as caring for children and dependents, intimate partner violence and other forms of abuse [@Homehubs]. However, there is no study explaining the reason to the high volume of male victims in homelessness populations. 
 
 This paper aims to identify the correlation between gender and age within the homeless population in Toronto from the year 2017 - 2023, specifically examining how age and gender intersect in terms of homelessness experiences and demographic characteristics. In examining the data set concerning causes of death, including homelessness as a potential factor, the hypothesis suggested is that there is a notable relationship between male homelessness and mortality rates across different age groups. Specifically, the anticipation that younger age groups (<20 and 20-39) among homeless males may exhibit higher mortality rates compared to older age groups (40-59 and 60+), potentially due to factors such as exposure to harsh living conditions, limited access to healthcare, and increased vulnerability to external threats.
 
@@ -42,11 +42,9 @@ The [Introduction] sets the stage by providing essential background information 
 
 The graphs and tables in this paper were made with [@citeR] using R studio. The creation of these graphs and tables was made with `ggplot` [@ggplot], `tiddyverse` [@rTidy], The analysis and cleaning of the data were conducted with and `dyplr` [@dply], `janitor` [@janitor] and `readr` [@readr] packages.
 
-
 # Data {#sec-data}
 
 The data was collected from Open Data Toronto, specifically from the data set called "Deaths of People Experiencing Homelessness," which is a subset known as "Homeless deaths by cause." Toronto Public Health (TPH) conducted this data collection initiative to track the deaths of people experiencing homelessness more accurately and understand their causes. TPH oversees the data collection, analysis, and reporting, while the Shelter, Support and Housing Administration (SSHA) and various health and social service agencies that support the homeless population share information with TPH. The Office of the Chief Coroner of Ontario (OCCO) also verifies some of the data. In this context, homelessness is defined as "the situation of an individual or family without stable, permanent, appropriate housing, or the immediate prospect, means, and ability to acquire it [@Odata].
-
 
 ## Data Source
 
@@ -57,7 +55,6 @@ The original data set contained six variables, for this paper, five of the six v
 To clean the data, five of the six variables were chosen as the *id* variable was not required for this paper. From there the *age group* category had unknown variables. To avoid any issues with the gender death analysis, the unknown variables were omitted from the clean data set. This brings the clean data set to 233 entries as opposed to the original 253, @tbl-summtable shows a snap shot of the clean data sets. The decision to omit unknown values in the age group category is particularly important when analyzing how gender correlates with different causes of death across specific age groups. Including unknown values could introduce uncertainty and skew the findings, making it challenging to draw accurate conclusions about any relationships or trends observed between gender, age, and causes of death among the homeless population.
 
 Therefore, by focusing on known age group data, the analysis can provide more insightful and reliable insights into how gender may influence mortality rates or patterns of causes of death within different age brackets among the homeless population in Toronto.
-
 
 ```{r}
 #| echo: false
@@ -79,8 +76,6 @@ head(Sum_data, 7) %>%
 
 
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -136,10 +131,6 @@ AgevDeath <- home_data %>%
   booktabs = TRUE
   )
 ```
-
-
-
-
 
 ```{r}
 #| echo: false
@@ -197,7 +188,6 @@ AgevCause <- home_data %>%
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
 
 ```{r}
 #| label: fig-agedeathsbyyear
@@ -448,8 +438,6 @@ ggplot(home2023, aes(x = fct_reorder(Cause_of_death, n), y = n, fill = Gender)) 
   labs(x = "Age Group", y = "Death Count", fill = "Cause of Death")
 ```
 
-
-
 # Results
 
 ## Yearly Death Analysis
@@ -460,7 +448,7 @@ Analyzing the data from the figure @fig-Yearvcuase, we can observe trends in the
 
 When analyzing the overall death trends over the years based on age groups @fig-AgevCause, a distinct pattern emerges, particularly regarding the age demographics of 20-39 and 40-59, which exhibit the highest death tolls. The primary cause attributed to these deaths is drug toxicity, indicating a significant challenge within these age brackets. Specifically, the 20-39 age group had a death toll of 137, while the 40-59 age group recorded a death toll of 143, highlighting the critical impact of substance abuse and related health risks in these younger to middle-aged homeless individuals. Moreover, projecting this trend forward, we observe that the second-highest cause of death among the 60+ age group is classified as unknown (@fig-AgevCause). This finding underscores the complexity of factors contributing to mortality in older homeless individuals, pointing to potential gaps in understanding and addressing the specific health issues or circumstances leading to these unknown causes of death.
 
-When examining the figures provided in @fig-agedeathbyyear, a clear picture emerges regarding the prevalent causes of death among various age demographics over the years. One notable trend is the consistent reporting of the highest death tolls among the 40-59 age demographic across different years. In particular, the data reveals that in 2019 @agedeathbyyear (c ), this age group experienced the highest number of deaths in seven out of the nine cause-of-death categories considered. This finding underscores the significant impact of mortality within the 40-59 age range and suggests a need for targeted interventions and health strategies to address the specific challenges faced by individuals in this demographic. Further analysis of these trends can offer valuable insights into the dynamics of mortality rates among different age groups, guiding efforts to improve healthcare access, address underlying health issues, and enhance support systems for vulnerable populations, including those experiencing homelessness.
+When examining the figures provided in @fig-agedeathsbyyear, a clear picture emerges regarding the prevalent causes of death among various age demographics over the years. One notable trend is the consistent reporting of the highest death tolls among the 40-59 age demographic across different years. In particular, the data reveals that in 2019 @fig-agedeathsbyyear (c), this age group experienced the highest number of deaths in seven out of the nine cause-of-death categories considered. This finding underscores the significant impact of mortality within the 40-59 age range and suggests a need for targeted interventions and health strategies to address the specific challenges faced by individuals in this demographic. Further analysis of these trends can offer valuable insights into the dynamics of mortality rates among different age groups, guiding efforts to improve healthcare access, address underlying health issues, and enhance support systems for vulnerable populations, including those experiencing homelessness.
 
 These insights prompt further exploration into the underlying factors driving mortality rates across different age groups within the homeless population, emphasizing the need for targeted interventions and support strategies tailored to address the diverse and evolving health challenges faced by individuals experiencing homelessness.
 
@@ -473,18 +461,15 @@ When analyzing the figures provided in @fig-genderyear from a gender perspective
 
 These results emphasize the urgent need for targeted interventions and health strategies, particularly in addressing substance abuse issues and understanding the gender-specific dynamics of mortality within the homeless population.
 
-
 # Discussion
 
 This paper aims to delve into the relationship between gender and age within Toronto's homeless population with a specific focus on mortality rates and causes of death. The central hypothesis posits that male homelessness is significantly correlated with higher mortality rates across different age groups. The anticipation of elevated mortality rates among younger homeless males, especially those below 20 and between 20 to 39, stems from the recognition of harsh living conditions, limited healthcare accessibility, and increased vulnerability to external risks among this demographic.
-
 
 ## Male-Female Cause of Death Trends
 
 The analysis of gender-specific cause-of-death trends among Toronto's homeless population from 2017 to 2023 reveals notable patterns. Across various age groups, males consistently exhibit higher mortality rates compared to females. This trend is particularly pronounced in the 20-39 and 40-59 age brackets, where male deaths significantly outnumber female deaths. The data underscores the disproportionate impact of homelessness on male individuals within these age demographics. One possible explanation for this disparity could be the differential exposure to risk factors and vulnerabilities among male and female homeless individuals. Factors such as substance abuse, violence, and lack of access to adequate health care may contribute to higher mortality rates among males. Additionally, societal norms and systemic challenges may disproportionately affect males in terms of seeking and receiving support services. The reasoning behind such a high volume of men being reported as homeless is unclear and should be studied moving forward to understand how homelessness affects this demographic so harshly. Based on the results and findings, it can be assumed that most of these reported deaths among homeless individuals are due to episodic and chronic homelessness. Although that particular information is not provided, it should be a consideration for understanding how often the population flows fluctuate.
 
 The findings highlight the importance of addressing gender-specific health disparities within homeless populations. Policymakers should make note and create targeted interventions focusing on addressing substance abuse, improving access to healthcare, and providing comprehensive support services tailored to the needs of male individuals. This in turn can play a crucial role in mitigating mortality rates and improving overall well-being to mitigate the growing homeless population.
-
 
 ## Male Age-Specific Cause of Death Trends
 
@@ -495,11 +480,7 @@ Moving to the 40-59 age group, while drug toxicity remains a significant cause o
 
 The main hypothesis of this study suggests a significant connection between male homelessness and mortality rates, focusing particularly on the 20-39 age group. Initial analysis affirmed a notable impact on male homeless individuals compared to females. However, the hypothesis fails to account for variations within gender and age subsets. For instance, younger homeless males aged 20-39 may face increased mortality risks due to substance abuse, whereas older homeless males may encounter different mortality patterns related to chronic health conditions and age-related vulnerabilities. To enhance future research, a more nuanced approach is required, considering factors like substance use patterns, healthcare accessibility, social support networks, and environmental exposures. Integrating these factors will lead to a more comprehensive understanding of mortality risks among homeless populations and inform targeted interventions.
 
-
-
-
-
-## Weaknesses & Next Steps
+# Weaknesses & Next Steps
 When considering weaknesses and potential biases in research on the correlation between gender and age within the homeless population in Toronto, several aspects should be addressed to understand what factors may have skewed the data projections during this paper's analysis. There was limited data available regarding age and gender breakdowns, and even with the available data, there were a few entries that were unknown for the age category. I opted to exclude those values to focus on the existing and available values within the dataset. This decision could have skewed the data and constrained the accuracy of the findings. As mentioned previously, there is an underlying stigma surrounding homelessness, which alone can influence individuals who are reluctant to disclose information, particularly those facing hidden homelessness. Lastly, within the gender values, there are three variables: male, female, and unknown. This unknown entry possibly refers to those individuals who have an LGBTQ+ identity and can overlook important nuances in the experiences of homeless individuals. Addressing these weaknesses and biases through rigorous study design, comprehensive data collection methods, ethical considerations, and thoughtful analysis can enhance the reliability and validity of research findings in this area." 
 
 Future studies in this area should aim to investigate the intersectionality of gender, race, ethnicity LGBTQ+ identity, disability status and mental illness to understand the long-term effects of homelessness within these demographics. Findings from this research can help understand how policymakers and organizations can help alleviate the growing numbers of homelessness victims and pave the way for research methodologies and intervention strategies aimed at addressing homelessness in a broader sense. Another future study can be aimed at exploring the long-term impacts of homelessness on an individual's physical and mental health, as well as their ability to reintegrate into stable housing and employment situations whether they face chronic or episodic homelessness. Understanding the nuanced challenges faced by homeless individuals, including the effects on physical and mental health, reintegration into stable housing and employment, and the cyclical nature of homelessness, is essential for creating effective and sustainable solutions. By prioritizing research and intervention strategies that consider the multifaceted aspects of homelessness, we can work towards a more inclusive and supportive approach that fosters long-term stability and well-being for vulnerable populations.
