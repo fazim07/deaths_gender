@@ -1,11 +1,15 @@
-# Exploring Mortality Patterns and Trends: An Analysis of Causes of Death Across Age Groups and Genders, 2017-2023
+# Unveiling Vulnerabilities: An Analysis of Causes of Death Across Age Groups and Genders Within Toronto's Homelessness Population (2017 - 2023)
 
 ## Overview
 
+<<<<<<< HEAD
 This paper aims to explore the relationship between male homelessness and mortality rates across age groups, focusing on causes of death related to homelessness in Toronto from the years 2017- 2023. The hypothesis suggests that younger homeless males (<20 and 20-39) may have higher mortality rates due to harsh living conditions, limited healthcare access, and increased vulnerability. The results indicate that while male homeless mortality rates are generally higher than reported female death tolls, the most affected age demographic is the 40-59 age range rather than the hypothesized age group.
 
 This repository contains data, code and a paper that analyze the trends in the cause of deaths, age, and genders of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/ .
 
+=======
+This repository contains data, code and a paper that analyzes the trends in the cause of death, age, and gender of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package[update]
+>>>>>>> b086c5699adf045de61fb7b5b24996b4f43b850c
 
 ## File Structure
 
@@ -22,7 +26,11 @@ The repo is structured as:
 The data set was obtained from Opendata Toronto; https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/
 
 ## Statement on Parquet File
+<<<<<<< HEAD
 When attempting to make a parquet file, I encountered this message which prevented me from dowloading the necessary resources:
+=======
+When attempting to make a parquet file, I encountered this message which prevented me from downloading the necessary resources:
+>>>>>>> b086c5699adf045de61fb7b5b24996b4f43b850c
 
  > Error in parquet___arrow___ArrowReaderProperties__Make(isTRUE(use_threads)) : Cannot call parquet___arrow___ArrowReaderProperties__Make(). See https://arrow.apache.org/docs/r/articles/install.html for help installing Arrow C++ libraries.
 
@@ -30,4 +38,4 @@ The arrow package is an interface to the Apache Arrow C++ libraries, and Parquet
 
 
 ## Statement on LLM usage
-Aspectd of the code was fixed and aided by ChatGPT, receipts can be found in 'other` > 'llm' > 'usage.txt'. This paper used Chatgpt to proofread which is also indicated in 'usage.text' file.
+Aspects of the code were fixed and aided by ChatGPT, receipts can be found in `other` > `LLM` > `usage.txt`. This paper used Chatgpt to proofread which is also indicated in the `usage.txt` file.
