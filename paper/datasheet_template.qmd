@@ -5,7 +5,7 @@ author: "Faiza Imam"
 thanks: "Code and data are available at: https://github.com/fazim07/deaths_gender"
 date: today
 date-format: long
-abstract: "This datasheet describes the motivations and composition of homesless death by cause data set obtained from OpenData Toronto. It also describes collection process, cleaning process, uses, distribution, and maintenance of the data sets."
+abstract: "This datasheet describes the motivations and composition of homesless death by cause dataset obtained from OpenData Toronto. It also describes collection process, cleaning process, uses, distribution, and maintenance of the datasets."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -130,7 +130,7 @@ Does the dataset contain sensitive data?
 	- While being hosted on Opendata portal, its free access to the public hence a third party may have access to it.
 	
 2. *How will the dataset be distributed (for example, tarball on website, API, GitHub)? Does the dataset have a digital object identifier (DOI)?*
-	- The data set comes in a CSV, JSON or Excel file no DOIs.
+	- The dataset comes in a CSV, JSON or Excel file no DOIs.
 	
 3. *When will the dataset be distributed?*
 	- The latest update or distribution was on Apr 17, 2024
@@ -150,7 +150,7 @@ Does the dataset contain sensitive data?
 **Maintenance**
 
 1. *Who will be supporting/hosting/maintaining the dataset?*
-	- Opendata Toronto portal will host and support the dataset while Opendata Toronto updates the data set.
+	- Opendata Toronto portal will host and support the dataset while Opendata Toronto updates the dataset.
 2. *How can the owner/curator/manager of the dataset be contacted (for example, email address)?*
 	- Can be contacted via email from Opendata Toronto
 	
