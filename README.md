@@ -24,11 +24,8 @@ The repo is structured as:
 The data set was obtained from Opendata Toronto; https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/
 
 ## Statement on Parquet File
-<<<<<<< HEAD
-When attempting to make a parquet file, I encountered this message which prevented me from dowloading the necessary resources:
-=======
+
 When attempting to make a parquet file, I encountered this message which prevented me from downloading the necessary resources:
->>>>>>> b086c5699adf045de61fb7b5b24996b4f43b850c
 
  > Error in parquet___arrow___ArrowReaderProperties__Make(isTRUE(use_threads)) : Cannot call parquet___arrow___ArrowReaderProperties__Make(). See https://arrow.apache.org/docs/r/articles/install.html for help installing Arrow C++ libraries.
 
