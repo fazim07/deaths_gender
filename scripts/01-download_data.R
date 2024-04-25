@@ -10,7 +10,7 @@ library(opendatatoronto)
 library(tidyverse)
 library(here)
 library (arrow)
-library(dplyr)
+library(dplyr) 
 #### Download data ####
 
 #The following lines of code is from https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/

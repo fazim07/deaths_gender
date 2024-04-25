@@ -8,7 +8,7 @@
 
 
 #### Workspace setup ####
-library(tidyverse)
+library(tidyverse) 
 
 ## Test if there are 7 years
 clean_omitNA$Year_of_death |> min(na.rm = TRUE) >= 7
