@@ -7,7 +7,7 @@ This paper aims to explore the relationship between male homelessness and mortal
 This repository contains data, code and a paper that analyzes the trends in the cause of death, age, and gender of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package https://open.toronto.ca/dataset/deaths-of-people-experiencing-homelessness/ .
 
 =======
-This repository contains data, code and a paper that analyzes the trends in the cause of death, age, and gender of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package [b086c5699adf045de61fb7b5b24996b4f43b850c]
+This repository contains data, code and a paper that analyzes the trends in the cause of death, age, and gender of people who are facing homelessness. The dataset used for analysis was retrieved from Open Data Toronto, under the package [b086c5699adf045de61fb7b5b24996b4f43b850c]. Using the R code provided by the developers.
 
 ## File Structure
 
